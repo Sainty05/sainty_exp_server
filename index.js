@@ -4,6 +4,21 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+///
+
+// routes/api.js
+//mogo schema
+const User = require('../models/User');
+const Movie = require('../models/Movie')
+const Session = require('../models/Session')
+const Expence = require('../models/Expence')
+//Node.js using bcrypt
+const bcrypt = require('bcrypt');
+//unique code
+const crypto = require("crypto");
+
+////
+
 const app = express();
 const port = 5000;
 
@@ -31,6 +46,29 @@ mongoose.connect(dbURI, {
   app.get('/', (req, res) => {
     res.send('Hello World!')
   })
+
+  app.post('/login', async (req, res) => {
+    try {
+      const user = await User.findOne({ email: req.body.email });
+      let sessionUserId = user._id
+      let sessionToken = crypto.randomBytes(16).toString("hex");
+      if (!user) {
+        return res.status(400).json({ message: 'Invalid credentials' });
+      } else {
+        const passwordMatch = await bcrypt.compare(req.body.password, user.password);
+        if (!passwordMatch) {
+          return res.status(400).json({ message: 'Invalid password' });
+        }
+        const newToken = new Session({ userId: sessionUserId, sessionToken: sessionToken })
+        await newToken.save();
+  
+        res.json({ message: 'User logged in successfully', session: { sessionToken: sessionToken, sessionId: newToken._id, sessionUserId: sessionUserId, sessionUserName: user.userName } });
+        // res.json({ message: 'User logged in successfully', user });
+      }
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
 
 // Use API routes
 // app.use('/api', require('./routes/api'));

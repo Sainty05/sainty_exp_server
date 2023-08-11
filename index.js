@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const routers = require('./routes/api')
 require('dotenv').config();
 
 const app = express();
@@ -33,7 +34,7 @@ app.get('/', (req, res) => {
 })
 
 // Use API routes
-app.use('/api', require('./routes/api'));
+app.use('/api', routers );
 
 // Start the server
 app.listen(port, () => {

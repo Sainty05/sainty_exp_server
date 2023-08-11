@@ -50,11 +50,7 @@ mongoose.connect(dbURI, {
     console.error('Error connecting to MongoDB:', err.message);
   });
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!')
-// })
-
-app.get('/hello', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
@@ -79,7 +75,7 @@ app.get('/hello', (req, res) => {
 //   } catch (err) {
 //     res.status(500).json({ message: err.message });
 //   }
-  
+
 // });
 
 // Use API routes

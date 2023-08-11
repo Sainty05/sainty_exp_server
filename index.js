@@ -69,12 +69,16 @@ app.post('/login', async (req, res) => {
       const newToken = new Session({ userId: sessionUserId, sessionToken: sessionToken })
       await newToken.save();
 
+      res.setHeader('Access-Control-Allow-Origin', 'https://sainty-exp-app-05.vercel.app');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
       res.json({ message: 'User logged in successfully', session: { sessionToken: sessionToken, sessionId: newToken._id, sessionUserId: sessionUserId, sessionUserName: user.userName } });
       // res.json({ message: 'User logged in successfully', user });
     }
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+  
 });
 
 // Use API routes

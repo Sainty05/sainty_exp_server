@@ -8,7 +8,7 @@ const app = express();
 const port = 5000;
 
 // serve up production assets
-// app.use(express.static('./client/build'));
+app.use(express.static('./client/build'));
 
 // Middleware
 app.use(cors());

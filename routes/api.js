@@ -10,6 +10,11 @@ const Expence = require('../models/Expence')
 const bcrypt = require('bcrypt');
 //unique code
 const crypto = require("crypto");
+//
+const app = express();
+const cors = require('cors');
+
+app.use(cors());
 
 // --------------------------- SESSION ---------------------------------------
 router.post('/session', async (req, res) => {

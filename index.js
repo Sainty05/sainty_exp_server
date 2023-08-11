@@ -8,12 +8,12 @@ require('dotenv').config();
 const app = express();
 const port = 5000;
 
-// serve up production assets
-app.use(express.static('./client/build'));
-
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// serve up production assets
+app.use(express.static('./client/build'));
 
 // Connect to MongoDB (using the cloud-based MongoDB connection URL)
 const dbURI = process.env.MONGO_DB_URL
@@ -33,6 +33,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+app.options('/api', cors()); // Respond to preflight requests
 // Use API routes
 app.use('/api', routers );
 

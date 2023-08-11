@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.options('/api', cors()); // Respond to preflight requests
+// app.options('/api', cors()); // Respond to preflight requests
 // Use API routes
 app.use('/api', router);
 

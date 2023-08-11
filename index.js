@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const routers = require('./routes/api')
+const router = require('./routes/api')
 require('dotenv').config();
 
 const app = express();
@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 
 app.options('/api', cors()); // Respond to preflight requests
 // Use API routes
-app.use('/api', routers );
+app.use('/api', router );
 
 // Start the server
 app.listen(port, () => {

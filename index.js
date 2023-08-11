@@ -29,7 +29,7 @@ mongoose.connect(dbURI, {
   });
 
 // Use API routes
-app.use('', require('./routes/api'));
+app.use('/', require('./routes/api'));
 
 // Start the server
 app.listen(port, () => {

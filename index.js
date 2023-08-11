@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-router.post('/api/session', async (req, res) => {
+app.post('/api/session', async (req, res) => {
   res.json("hello")
   // try {
   //   const sessionId = req.body.sessionId

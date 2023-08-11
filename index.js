@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const router = require('./routes/api')
 require('dotenv').config();
+const Session = require('./models/Session')
 
 const app = express();
 const port = 5000;

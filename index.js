@@ -54,32 +54,33 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.post('/login', async (req, res) => {
-  try {
-    const user = await User.findOne({ email: req.body.email });
-    let sessionUserId = user._id
-    let sessionToken = crypto.randomBytes(16).toString("hex");
-    if (!user) {
-      return res.status(400).json({ message: 'Invalid credentials' });
-    } else {
-      const passwordMatch = await bcrypt.compare(req.body.password, user.password);
-      if (!passwordMatch) {
-        return res.status(400).json({ message: 'Invalid password' });
-      }
-      const newToken = new Session({ userId: sessionUserId, sessionToken: sessionToken })
-      await newToken.save();
+app.get('/hello', (req, res) => {
+  res.send('Hello World!')
+})
 
-      res.setHeader('Access-Control-Allow-Origin', 'https://sainty-exp-app-05.vercel.app');
-      res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-      res.json({ message: 'User logged in successfully', session: { sessionToken: sessionToken, sessionId: newToken._id, sessionUserId: sessionUserId, sessionUserName: user.userName } });
-      // res.json({ message: 'User logged in successfully', user });
-    }
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+// app.post('/login', async (req, res) => {
+//   try {
+//     const user = await User.findOne({ email: req.body.email });
+//     let sessionUserId = user._id
+//     let sessionToken = crypto.randomBytes(16).toString("hex");
+//     if (!user) {
+//       return res.status(400).json({ message: 'Invalid credentials' });
+//     } else {
+//       const passwordMatch = await bcrypt.compare(req.body.password, user.password);
+//       if (!passwordMatch) {
+//         return res.status(400).json({ message: 'Invalid password' });
+//       }
+//       const newToken = new Session({ userId: sessionUserId, sessionToken: sessionToken })
+//       await newToken.save();
+
+//       res.json({ message: 'User logged in successfully', session: { sessionToken: sessionToken, sessionId: newToken._id, sessionUserId: sessionUserId, sessionUserName: user.userName } });
+//       // res.json({ message: 'User logged in successfully', user });
+//     }
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
   
-});
+// });
 
 // Use API routes
 // app.use('/api', require('./routes/api'));

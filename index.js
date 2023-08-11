@@ -28,12 +28,12 @@ mongoose.connect(dbURI, {
     console.error('Error connecting to MongoDB:', err.message);
   });
 
-app.get('/hello', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
 // Use API routes
-// app.use('/api', require('./routes/api'));
+app.use('/api', require('./routes/api'));
 
 // Start the server
 app.listen(port, () => {

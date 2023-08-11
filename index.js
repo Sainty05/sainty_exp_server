@@ -29,12 +29,12 @@ app.use(express.static('./client/build'));
 app.use(cors());
 app.use(express.json());
 
-// Configure CORS to allow requests from your frontend domain
-app.use(cors({
-  origin: 'https://sainty-exp-app-05.vercel.app',
-  methods: ['GET', 'POST'],  // Adjust the allowed methods as needed
-  credentials: true,         // Allow cookies, authentication headers, etc.
-}));
+// // Configure CORS to allow requests from your frontend domain
+// app.use(cors({
+//   origin: 'https://sainty-exp-app-05.vercel.app',
+//   methods: ['GET', 'POST'],  // Adjust the allowed methods as needed
+//   credentials: true,         // Allow cookies, authentication headers, etc.
+// }));
 
 // Connect to MongoDB (using the cloud-based MongoDB connection URL)
 const dbURI = process.env.MONGO_DB_URL

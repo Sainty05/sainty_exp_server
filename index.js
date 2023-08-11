@@ -4,7 +4,6 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const router = require('./routes/api')
 require('dotenv').config();
-const Session = require('./models/Session')
 
 const app = express();
 const port = 5000;
@@ -40,6 +39,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+const Session = require('./models/Session')
 app.post('/api/session', async (req, res) => {
   // res.json("hello")
   try {

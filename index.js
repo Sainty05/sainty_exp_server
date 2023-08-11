@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 
 // app.options('/api', cors()); // Respond to preflight requests
 // Use API routes
-app.use('/api', router);
+app.use('/api', router, cors());
 
 // Start the server
 app.listen(port, () => {

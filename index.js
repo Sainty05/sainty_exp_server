@@ -28,7 +28,7 @@ mongoose.connect(dbURI, {
     console.error('Error connecting to MongoDB:', err.message);
   });
 
-app.get('/', (req, res) => {
+app.get('/hello', (req, res) => {
   res.send('Hello World!')
 })
 

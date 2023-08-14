@@ -36,7 +36,7 @@ mongoose.connect(dbURI, {
   });
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send(process.env.MONGO_DB_URL)
 })
 
 // const Session = require('./models/Session')

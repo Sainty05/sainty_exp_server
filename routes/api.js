@@ -32,11 +32,11 @@ router.post('/session', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    let sessionUserId = user._id
     let sessionToken = crypto.randomBytes(16).toString("hex");
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     } else {
+      let sessionUserId = user._id
       const passwordMatch = await bcrypt.compare(req.body.password, user.password);
       if (!passwordMatch) {
         return res.status(400).json({ message: 'Invalid password' });
@@ -139,6 +139,18 @@ router.put('/updateUser/:id', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+// ---------------------- update password ------------------------
+router.put("/updatePassword/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const updatePassword = req.body;
+    const updateRes = await User.findByIdAndUpdate(userId, updatePassword)
+    res.json(updateRes);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+})
 
 // ----------------------------------- MOVIE -------------------------------
 // ------------------- add movie -----------------------

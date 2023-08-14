@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.json());
 
 // serve up production assets
-app.use(express.static('./client/build'));
+// app.use(express.static('./client/build'));
 
 // Connect to MongoDB (using the cloud-based MongoDB connection URL)
 const dbURI = process.env.MONGO_DB_URL
@@ -39,26 +39,26 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-const Session = require('./models/Session')
-app.post('/api/session', async (req, res) => {
-  // res.json("hello")
-  try {
-    const sessionId = req.body.sessionId
-    const sessionToken = req.body.sessionToken
-    const session = await Session.findOne({ _id: sessionId })
-    if (session.sessionToken === sessionToken) {
-      return res.json({ message: 'Session active for User!', sessionActive: true });
-    } else {
-      return res.status(400).json({ message: 'No session active for User!', sessionActive: false });
-    }
-  } catch (err) {
-    res.status(500).json({ message: err.message, sessionActive: false });
-  }
-})
+// const Session = require('./models/Session')
+// app.post('/api/session', async (req, res) => {
+//   // res.json("hello")
+//   try {
+//     const sessionId = req.body.sessionId
+//     const sessionToken = req.body.sessionToken
+//     const session = await Session.findOne({ _id: sessionId })
+//     if (session.sessionToken === sessionToken) {
+//       return res.json({ message: 'Session active for User!', sessionActive: true });
+//     } else {
+//       return res.status(400).json({ message: 'No session active for User!', sessionActive: false });
+//     }
+//   } catch (err) {
+//     res.status(500).json({ message: err.message, sessionActive: false });
+//   }
+// })
 
 // app.options('/api', cors()); // Respond to preflight requests
 // Use API routes
-// app.use('/api', router, cors());
+app.use('/api', router, cors());
 
 // Start the server
 app.listen(port, () => {

@@ -255,7 +255,7 @@ router.post('/Expences', async (req, res) => {
     const startOfMonth = new Date(year, month - 1, 1);
     const endOfMonth = new Date(year, month, 1);
 
-    const cuurentExpences = await Expence.find({
+    const currentExpences = await Expence.find({
       createdAt: {
         $gte: startOfMonth,
         $lt: endOfMonth
@@ -269,7 +269,7 @@ router.post('/Expences', async (req, res) => {
       },
       userId: userId
     })
-    res.json({ cuurentExpences: cuurentExpences, previousExpences: previousExpences })
+    res.json({ currentExpences: currentExpences, previousExpences: previousExpences })
   } catch (err) {
     res.status(500).json({ message: err.message })
   }

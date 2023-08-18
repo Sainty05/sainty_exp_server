@@ -34,17 +34,17 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     let sessionToken = crypto.randomBytes(16).toString("hex");
     if (!user) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+      return res.status(300).json({ message: 'Invalid credentials' });
     } else {
       let sessionUserId = user._id
       const passwordMatch = await bcrypt.compare(req.body.password, user.password);
       if (!passwordMatch) {
-        return res.status(400).json({ message: 'Invalid password' });
+        return res.status(300).json({ message: 'Invalid password' });
       }
       const newToken = new Session({ userId: sessionUserId, sessionToken: sessionToken })
       await newToken.save();
 
-      res.json({ message: 'User logged in successfully', session: { sessionToken: sessionToken, sessionId: newToken._id, sessionUserId: sessionUserId, sessionUserName: user.userName } });
+      res.status(200).json({ message: 'User logged in successfully', session: { sessionToken: sessionToken, sessionId: newToken._id, sessionUserId: sessionUserId, sessionUserName: user.userName } });
       // res.json({ message: 'User logged in successfully', user });
     }
   } catch (err) {
